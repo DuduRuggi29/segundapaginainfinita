@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: stop observing after reveal
-                // revealObserver.unobserve(entry.target);
+                // stop observing after reveal to save resources
+                revealObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -51,15 +51,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Navbar Background Change on Scroll
+    // 4. Navbar Background Change on Scroll (Throttled)
     const navbar = document.querySelector('.navbar');
+    let scrollTicking = false;
+
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 10px 30px rgba(0, 102, 255, 0.1)';
-            navbar.style.borderBottom = '1px solid rgba(0, 102, 255, 0.2)';
-        } else {
-            navbar.style.boxShadow = 'none';
-            navbar.style.borderBottom = '1px solid rgba(0, 102, 255, 0.1)';
+        if (!scrollTicking) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > 50) {
+                    navbar.style.boxShadow = '0 10px 30px rgba(0, 102, 255, 0.1)';
+                    navbar.style.borderBottom = '1px solid rgba(0, 102, 255, 0.2)';
+                } else {
+                    navbar.style.boxShadow = 'none';
+                    navbar.style.borderBottom = '1px solid rgba(0, 102, 255, 0.1)';
+                }
+                scrollTicking = false;
+            });
+            scrollTicking = true;
         }
     });
 
@@ -93,28 +101,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. Interactive Feature Cards (3D Tilt & Spotlight)
+    // 7. Interactive Feature Cards (3D Tilt & Spotlight) - Throttled
     const featureItems = document.querySelectorAll('.feature-item');
+    let tiltTicking = false;
     
     featureItems.forEach(item => {
         item.addEventListener('mousemove', (e) => {
-            const rect = item.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            if (!tiltTicking) {
+                window.requestAnimationFrame(() => {
+                    const rect = item.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
 
-            // Update Spotlight position
-            const xPercent = (x / rect.width) * 100;
-            const yPercent = (y / rect.height) * 100;
-            item.style.setProperty('--mouse-x', `${xPercent}%`);
-            item.style.setProperty('--mouse-y', `${yPercent}%`);
+                    // Update Spotlight position
+                    const xPercent = (x / rect.width) * 100;
+                    const yPercent = (y / rect.height) * 100;
+                    item.style.setProperty('--mouse-x', `${xPercent}%`);
+                    item.style.setProperty('--mouse-y', `${yPercent}%`);
 
-            // 3D Tilt calculation
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (centerY - y) / 10; // Adjust for intensity
-            const rotateY = (x - centerX) / 10;
+                    // 3D Tilt calculation
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (centerY - y) / 10;
+                    const rotateY = (x - centerX) / 10;
 
-            item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                    item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                    tiltTicking = false;
+                });
+                tiltTicking = true;
+            }
         });
 
         item.addEventListener('mouseleave', () => {
