@@ -152,6 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
+
+            // Show Gabarito
+            document.getElementById('q1-solution').classList.remove('hidden');
         });
     });
 
