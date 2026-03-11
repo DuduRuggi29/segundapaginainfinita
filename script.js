@@ -77,32 +77,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Interactive Generator Logic
+    // 5. Interactive Generator & Simulator Logic
     const btnGenerate = document.getElementById('btn-generate');
     const generatorForm = document.getElementById('generator-form');
     const resultArea = document.getElementById('result-area');
     const genStatus = document.querySelector('.generating-status');
-    const blurredQuestion = document.querySelector('.blurred-question');
+    const simulatorInterface = document.querySelector('.simulator-interface');
     
+    let timerInterval;
+    let seconds = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+
+    function formatTime(totalSeconds) {
+        const mins = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+        const secs = (totalSeconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
+    }
+
+    function startTimer() {
+        seconds = 0;
+        document.getElementById('timer').textContent = "00:00";
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            seconds++;
+            document.getElementById('timer').textContent = formatTime(seconds);
+        }, 1000);
+    }
+
     if (btnGenerate) {
         btnGenerate.addEventListener('click', () => {
-            const banca = document.getElementById('select-banca').value;
-            const nivel = document.getElementById('select-nivel').value;
-            
             generatorForm.classList.add('hidden');
             resultArea.classList.remove('hidden');
             genStatus.classList.remove('hidden');
-            blurredQuestion.classList.add('hidden');
-            
-            document.getElementById('res-banca').textContent = banca;
-            document.getElementById('res-nivel').textContent = `Nível: ${nivel.charAt(0).toUpperCase() + nivel.slice(1)}`;
+            simulatorInterface.classList.add('hidden');
             
             setTimeout(() => {
                 genStatus.classList.add('hidden');
-                blurredQuestion.classList.remove('hidden');
+                simulatorInterface.classList.remove('hidden');
+                startTimer();
+                window.scrollTo({
+                    top: resultArea.offsetTop - 100,
+                    behavior: 'smooth'
+                });
             }, 2500);
         });
     }
+
+    // Question Interaction Logic
+    const optionBtns = document.querySelectorAll('#q1 .option-btn');
+    const correctDisplay = document.getElementById('correct-count');
+    const wrongDisplay = document.getElementById('wrong-count');
+
+    optionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.parentElement.classList.contains('answered')) return;
+
+            const isCorrect = btn.getAttribute('data-correct') === 'true';
+            btn.classList.add('selected');
+            btn.parentElement.classList.add('answered');
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                correctCount++;
+                correctDisplay.textContent = correctCount;
+            } else {
+                btn.classList.add('wrong');
+                wrongCount++;
+                wrongDisplay.textContent = wrongCount;
+                // Highlight the correct one
+                optionBtns.forEach(b => {
+                    if (b.getAttribute('data-correct') === 'true') {
+                        b.classList.add('correct');
+                    }
+                });
+            }
+        });
+    });
 
     // 7. Interactive Feature Cards (3D Tilt) - Disabled on Mobile
     const featureItems = document.querySelectorAll('.feature-item');

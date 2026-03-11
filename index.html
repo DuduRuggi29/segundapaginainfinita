@@ -90,38 +90,38 @@
                                     <label>Banca do Concurso</label>
                                     <select id="select-banca">
                                         <option value="Cebraspe (CESPE)">Cebraspe (CESPE)</option>
-                                        <option value="FGV">FGV</option>
-                                        <option value="VUNESP">VUNESP</option>
-                                        <option value="FCC">FCC</option>
-                                        <option value="ESAF">ESAF</option>
-                                        <option value="IBFC">IBFC</option>
-                                        <option value="AOCP">AOCP</option>
+                                        <option value="FGV" disabled>FGV (Bloqueado - Assine para liberar)</option>
+                                        <option value="VUNESP" disabled>VUNESP (Bloqueado - Assine para liberar)</option>
+                                        <option value="FCC" disabled>FCC (Bloqueado - Assine para liberar)</option>
+                                        <option value="ESAF" disabled>ESAF (Bloqueado - Assine para liberar)</option>
+                                        <option value="IBFC" disabled>IBFC (Bloqueado - Assine para liberar)</option>
+                                        <option value="AOCP" disabled>AOCP (Bloqueado - Assine para liberar)</option>
                                     </select>
                                 </div>
                                 <div class="input-group">
                                     <label>Matéria / Tema (Opcional)</label>
                                     <select id="select-assunto">
                                         <option value="Qualquer Tema (Aleatório)">Qualquer Tema (Aleatório)</option>
-                                        <option value="Porcentagem">Porcentagem</option>
-                                        <option value="Razão e Proporção">Razão e Proporção</option>
-                                        <option value="Regra de Três">Regra de Três</option>
-                                        <option value="Matemática Financeira">Matemática Financeira</option>
-                                        <option value="Probabilidade">Probabilidade</option>
-                                        <option value="Análise Combinatória">Análise Combinatória</option>
-                                        <option value="Estatística">Estatística</option>
-                                        <option value="Equações">Equações</option>
-                                        <option value="Geometria">Geometria</option>
-                                        <option value="Trigonometria">Trigonometria</option>
-                                        <option value="Lógica Matemática">Lógica Matemática</option>
-                                        <option value="Raciocínio Lógico">Raciocínio Lógico</option>
+                                        <option value="Porcentagem" disabled>Porcentagem (Bloqueado)</option>
+                                        <option value="Razão e Proporção" disabled>Razão e Proporção (Bloqueado)</option>
+                                        <option value="Regra de Três" disabled>Regra de Três (Bloqueado)</option>
+                                        <option value="Matemática Financeira" disabled>Matemática Financeira (Bloqueado)</option>
+                                        <option value="Probabilidade" disabled>Probabilidade (Bloqueado)</option>
+                                        <option value="Análise Combinatória" disabled>Análise Combinatória (Bloqueado)</option>
+                                        <option value="Estatística" disabled>Estatística (Bloqueado)</option>
+                                        <option value="Equações" disabled>Equações (Bloqueado)</option>
+                                        <option value="Geometria" disabled>Geometria (Bloqueado)</option>
+                                        <option value="Trigonometria" disabled>Trigonometria (Bloqueado)</option>
+                                        <option value="Lógica Matemática" disabled>Lógica Matemática (Bloqueado)</option>
+                                        <option value="Raciocínio Lógico" disabled>Raciocínio Lógico (Bloqueado)</option>
                                     </select>
                                 </div>
                                 <div class="input-group">
                                     <label>Nível de Dificuldade</label>
                                     <select id="select-nivel">
                                         <option value="Fácil">Fácil</option>
-                                        <option value="Médio">Médio</option>
-                                        <option value="Difícil">Difícil</option>
+                                        <option value="Médio" disabled>Médio (Bloqueado)</option>
+                                        <option value="Difícil" disabled>Difícil (Bloqueado)</option>
                                     </select>
                                 </div>
                             </div>
@@ -136,29 +136,70 @@
                                 <div class="spinner"></div>
                                 <p>IA analisando padrões da banca...</p>
                             </div>
-                            <div class="blurred-question hidden">
-                                <div class="question-header">
-                                    <span class="bank-tag" id="res-banca">FGV</span>
-                                    <span class="level-tag" id="res-nivel">Nível: Médio</span>
+
+                            <div class="simulator-interface hidden">
+                                <!-- Status Bar -->
+                                <div class="simulator-stats">
+                                    <div class="stat-item"><span class="icon">⏱️</span> <span id="timer">00:00</span></div>
+                                    <div class="stat-item success"><span class="icon">✅</span> <span id="correct-count">0</span> Acertos</div>
+                                    <div class="stat-item danger"><span class="icon">❌</span> <span id="wrong-count">0</span> Erros</div>
+                                    <div class="stat-item text-muted"><span class="icon">🎯</span> 0 / 1000 Respondidas</div>
                                 </div>
-                                <div class="question-body">
-                                    <div class="blur-overlay">
-                                    <div class="cta-overlay">
-                                            <p><strong>Questões geradas com sucesso!</strong><br>Para liberar, assine agora e tenha acesso total ao seu simulado exclusivo.</p>
-                                            <a href="#precos" class="btn btn-primary btn-sm">Liberar Meu Acesso</a>
+
+                                <!-- Question 1 -->
+                                <div class="question-card" id="q1">
+                                    <div class="question-header">
+                                        <span class="bank-tag">Cebraspe (CESPE)</span>
+                                        <span class="level-tag">Nível: Fácil</span>
+                                    </div>
+                                    <div class="question-body">
+                                        <p class="question-text">Em uma pesquisa de mercado realizada com 200 pessoas, verificou-se que 120 delas consomem o produto A e 100 delas consomem o produto B. Se 40 pessoas não consomem nenhum dos dois produtos, o número de pessoas que consomem os produtos A e B simultaneamente é:</p>
+                                        
+                                        <div class="options-group">
+                                            <button class="option-btn" data-correct="false">
+                                                <span class="letter">A</span>
+                                                <span class="text">40 pessoas</span>
+                                            </button>
+                                            <button class="option-btn" data-correct="false">
+                                                <span class="letter">B</span>
+                                                <span class="text">50 pessoas</span>
+                                            </button>
+                                            <button class="option-btn" data-correct="true">
+                                                <span class="letter">C</span>
+                                                <span class="text">60 pessoas</span>
+                                            </button>
+                                            <button class="option-btn" data-correct="false">
+                                                <span class="letter">D</span>
+                                                <span class="text">70 pessoas</span>
+                                            </button>
+                                            <button class="option-btn" data-correct="false">
+                                                <span class="letter">E</span>
+                                                <span class="text">80 pessoas</span>
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="skeleton-text">
-                                        <div class="skeleton line-1"></div>
-                                        <div class="skeleton line-2"></div>
-                                        <div class="skeleton line-3"></div>
-                                        <div class="skeleton line-2" style="width: 80%"></div>
+                                </div>
+
+                                <!-- Question 2 (Blurred Paywall) -->
+                                <div class="question-card blurred-card" id="q2">
+                                    <div class="paywall-overlay">
+                                        <div class="paywall-content">
+                                            <h3>Simulado Personalizado Pronto!</h3>
+                                            <p>Assine agora para liberar 100 questões inéditas focadas em Cebraspe e dominar sua prova.</p>
+                                            <a href="#precos" class="btn btn-primary">Liberar Acesso Total</a>
+                                        </div>
                                     </div>
-                                    <div class="skeleton-options">
-                                        <div class="skeleton-opt"></div>
-                                        <div class="skeleton-opt"></div>
-                                        <div class="skeleton-opt"></div>
-                                        <div class="skeleton-opt"></div>
+                                    <div class="question-header">
+                                        <span class="bank-tag">Cebraspe (CESPE)</span>
+                                        <span class="level-tag">Nível: Fácil</span>
+                                    </div>
+                                    <div class="question-body">
+                                        <p class="question-text">Considere a seguinte proposição lógica: "Se Paulo estuda, então ele será aprovado". Uma negação logicamente equivalente para essa proposição é:</p>
+                                        <div class="options-group">
+                                            <div class="option-btn disabled">A</div>
+                                            <div class="option-btn disabled">B</div>
+                                            <div class="option-btn disabled">C</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
