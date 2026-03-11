@@ -58,7 +58,8 @@ section {
 
 /* Navbar */
 .navbar {
-    height: 80px;
+    min-height: 80px;
+    padding: 10px 0;
     display: flex;
     align-items: center;
     position: sticky;
@@ -89,8 +90,9 @@ section {
 }
 
 .logo-img {
-    height: 48px;
+    height: 200px;
     width: auto;
+    object-fit: contain;
 }
 
 .logo span {
@@ -1534,6 +1536,7 @@ section {
     .badge { font-size: 0.7rem; padding: 6px 12px; }
     .container { padding: 0 16px; }
     .logo { font-size: 1.1rem; } /* Even smaller on mobile */
+    .logo-img { height: 120px; }
     .mockup-frame { border-width: 1px; border-radius: 24px; }
     .generator-box { border-radius: 16px; }
     .input-group select { font-size: 0.9rem; padding: 12px; }
