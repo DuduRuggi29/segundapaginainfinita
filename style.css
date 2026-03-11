@@ -87,10 +87,11 @@ section {
     align-items: center;
     justify-content: center;
     gap: 15px;
+    padding: 20px 0; /* Mais espaço para não espremer ela */
 }
 
 .logo-img {
-    height: 130px; /* Tamanho substancial e visível, já sem bordas brancas limitantes */
+    height: 180px; /* Aumentado de 130px para ficar absurdamente maior */
     max-width: 100%;
     width: auto;
     object-fit: contain;
@@ -1539,7 +1540,7 @@ section {
     .logo { 
         font-size: 1.1rem;
     } /* Even smaller on mobile */
-    .logo-img { height: 95px; }
+    .logo-img { height: 120px; }
     .mockup-frame { border-width: 1px; border-radius: 24px; }
     .generator-box { border-radius: 16px; }
     .input-group select { font-size: 0.9rem; padding: 12px; }
