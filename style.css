@@ -87,18 +87,13 @@ section {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 280px; /* Aumentei de 250px para 280px para caber o texto completo */
-    height: 60px;
-    overflow: hidden;
 }
 
 .logo-img {
-    height: 100px;
+    height: 60px; /* Tamanho natural e elegante dentro da navbar */
+    max-width: 100%; /* Garantir responsividade fluída */
     width: auto;
     object-fit: contain;
-    mix-blend-mode: multiply;
-    transform: scale(3.5);
-    transform-origin: center right; /* Mudando o origin para garantir que alinhe as bordas certas se precisar, mas no caso é melhor center */
 }
 
 .logo span {
@@ -1543,10 +1538,8 @@ section {
     .container { padding: 0 16px; }
     .logo { 
         font-size: 1.1rem;
-        width: 180px;
-        height: 50px;
     } /* Even smaller on mobile */
-    .logo-img { height: 75px; transform: scale(3.5); }
+    .logo-img { height: 40px; }
     .mockup-frame { border-width: 1px; border-radius: 24px; }
     .generator-box { border-radius: 16px; }
     .input-group select { font-size: 0.9rem; padding: 12px; }
