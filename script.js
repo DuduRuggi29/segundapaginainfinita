@@ -116,8 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 genStatus.classList.add('hidden');
                 simulatorInterface.classList.remove('hidden');
                 startTimer();
+                
+                // Better scroll logic to avoid jumping
+                const targetOffset = resultArea.getBoundingClientRect().top + window.pageYOffset - 80;
                 window.scrollTo({
-                    top: resultArea.offsetTop - 100,
+                    top: targetOffset,
                     behavior: 'smooth'
                 });
             }, 2500);
@@ -128,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const optionBtns = document.querySelectorAll('#q1 .option-btn');
     const correctDisplay = document.getElementById('correct-count');
     const wrongDisplay = document.getElementById('wrong-count');
+    const answeredDisplay = document.getElementById('answered-count');
 
     optionBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -136,6 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const isCorrect = btn.getAttribute('data-correct') === 'true';
             btn.classList.add('selected');
             btn.parentElement.classList.add('answered');
+
+            // Update Answered Count
+            answeredDisplay.textContent = "1";
 
             if (isCorrect) {
                 btn.classList.add('correct');

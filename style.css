@@ -912,8 +912,37 @@ section {
     .simulator-stats {
         padding: 12px;
         justify-content: center;
+        gap: 8px;
     }
     .stat-item {
+        font-size: 0.8rem;
+    }
+    .question-card {
+        padding: 16px;
+    }
+    .question-text {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+    }
+    .option-btn {
+        padding: 12px;
+        gap: 12px;
+    }
+    .option-btn .text {
+        font-size: 0.9rem;
+    }
+    .option-btn .letter {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+    .paywall-content {
+        padding: 24px 16px;
+    }
+    .paywall-content h3 {
+        font-size: 1.2rem;
+    }
+    .paywall-content p {
         font-size: 0.85rem;
     }
 }
